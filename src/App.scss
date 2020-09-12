@@ -26,3 +26,18 @@ h1 {
   max-width: 500px;
   margin: 0 auto;
 }
+
+.board {
+  background: #bbada0;
+  border-radius: 6px;
+  display: grid;
+  grid-template-columns: repeat(var(--board-size), 1fr);
+  gap: 1rem;
+  padding: 1rem;
+
+  .board-box {
+    border-radius: 3px;
+    padding-bottom: 100%;
+    background: #cdc1b4;
+  }
+}

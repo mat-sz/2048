@@ -1,8 +1,10 @@
 import React from 'react';
 
-const boardSize = parseInt(process.env.REACT_APP_BOARD_SIZE || '4') || 4;
+export interface BoardProps {
+  boardSize: number;
+}
 
-const Board: React.FC = () => {
+const Board: React.FC<BoardProps> = ({ boardSize }) => {
   return (
     <div className="board" style={{ '--board-size': boardSize } as any}>
       {new Array(Math.pow(boardSize, 2)).fill(undefined).map((_, i) => (

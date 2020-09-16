@@ -42,6 +42,57 @@ h1 {
     background: #cdc1b4;
     line-height: 0;
 
+    &-not-empty {
+      background: #3c3a32;
+      color: #f9f6f2;
+    }
+
+    &-2 {
+      background: #eee4da;
+      color: #776e65;
+    }
+
+    &-4 {
+      background: #ede0c8;
+      color: #776e65;
+    }
+
+    &-8 {
+      background: #f2b179;
+    }
+
+    &-16 {
+      background: #f59563;
+    }
+
+    &-32 {
+      background: #f67c5f;
+    }
+
+    &-64 {
+      background: #f65e3b;
+    }
+
+    &-128 {
+      background: #edcf72;
+    }
+
+    &-256 {
+      background: #edcc61;
+    }
+
+    &-512 {
+      background: #edc850;
+    }
+
+    &-1024 {
+      background: #edc53f;
+    }
+
+    &-2048 {
+      background: #edc22e;
+    }
+
     &-text {
       position: absolute;
       top: 0;

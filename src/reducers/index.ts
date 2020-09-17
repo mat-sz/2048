@@ -1,9 +1,19 @@
 import { Store } from 'redux';
+
 import { ActionModel } from '../types/Models';
+import { initializeBoard, BoardType } from '../functions/board';
 
-export interface StateType {}
+const boardSize = parseInt(process.env.REACT_APP_BOARD_SIZE || '4') || 4;
 
-let initialState: StateType = {};
+export interface StateType {
+  boardSize: number;
+  board: BoardType;
+}
+
+let initialState: StateType = {
+  boardSize: boardSize,
+  board: initializeBoard(boardSize),
+};
 
 export type StoreType = Store<StateType, ActionModel>;
 

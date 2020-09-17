@@ -1,7 +1,9 @@
 import { Store } from 'redux';
 
+import { ActionType } from '../types/ActionType';
 import { ActionModel } from '../types/Models';
-import { initializeBoard, BoardType } from '../functions/board';
+import { initializeBoard, BoardType, updateBoard } from '../functions/board';
+import { Direction } from '../types/Direction';
 
 const boardSize = parseInt(process.env.REACT_APP_BOARD_SIZE || '4') || 4;
 
@@ -21,6 +23,17 @@ function applicationState(state = initialState, action: ActionModel) {
   const newState = { ...state };
 
   switch (action.type) {
+    case ActionType.RESET:
+      newState.board = initializeBoard(newState.boardSize);
+      break;
+    case ActionType.MOVE:
+      const direction = action.value as Direction;
+      newState.board = updateBoard(
+        newState.board,
+        newState.boardSize,
+        direction
+      );
+      break;
     default:
       return state;
   }

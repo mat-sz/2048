@@ -28,11 +28,7 @@ function applicationState(state = initialState, action: ActionModel) {
       break;
     case ActionType.MOVE:
       const direction = action.value as Direction;
-      newState.board = updateBoard(
-        newState.board,
-        newState.boardSize,
-        direction
-      );
+      newState.board = updateBoard(newState.board, direction);
       break;
     default:
       return state;

@@ -6,7 +6,15 @@ export function newTileValue() {
   return Math.random() > 0.1 ? 2 : 4;
 }
 
+function containsEmpty(board: BoardType): boolean {
+  return board.find(value => value === 0) === 0;
+}
+
 export function newTile(board: BoardType): BoardType {
+  if (!containsEmpty(board)) {
+    return board;
+  }
+
   while (true) {
     const index = Math.floor(Math.random() * board.length);
     if (board[index] === 0) {
@@ -117,4 +125,25 @@ export function updateBoard(board: BoardType, direction: Direction): BoardType {
   }
 
   return board;
+}
+
+export function movePossible(board: BoardType): boolean {
+  const boardSize = Math.sqrt(board.length);
+
+  if (containsEmpty(board)) {
+    return true;
+  }
+
+  for (let i = 0; i < board.length; i++) {
+    if (
+      board[i] === board[i + boardSize] ||
+      board[i] === board[i - boardSize] ||
+      (i % boardSize !== 0 && board[i] === board[i - 1]) ||
+      (i % boardSize !== boardSize - 1 && board[i] === board[i + 1])
+    ) {
+      return true;
+    }
+  }
+
+  return false;
 }

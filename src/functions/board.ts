@@ -86,13 +86,22 @@ function rotateBoard(
   return newBoard;
 }
 
-export function updateBoard(board: BoardType, direction: Direction): BoardType {
+export interface BoardUpdate {
+  board: BoardType;
+  scoreIncrease: number;
+}
+
+export function updateBoard(
+  board: BoardType,
+  direction: Direction
+): BoardUpdate {
   const boardSize = Math.sqrt(board.length);
 
   // First the board is rotated so gravity can work downwards.
   board = rotateBoard(board, direction);
 
   let changed = false;
+  let scoreIncrease = 0;
 
   // Going from second last to the first row on the rotated board.
   for (let row = boardSize - 2; row >= 0; row--) {
@@ -104,8 +113,12 @@ export function updateBoard(board: BoardType, direction: Direction): BoardType {
       while (board[below] === 0 || (mergeSame && board[i] === board[below])) {
         changed = true;
 
-        // Ensure non-greedy behavior, only allow first merge after downfall.
-        mergeSame = board[below] === 0;
+        if (board[below] !== 0) {
+          // Ensure non-greedy behavior, only allow first merge after downfall.
+          mergeSame = false;
+
+          scoreIncrease += board[i] * 2;
+        }
 
         // Merge or update tile.
         board[below] += board[i];
@@ -124,7 +137,7 @@ export function updateBoard(board: BoardType, direction: Direction): BoardType {
     board = newTile(board);
   }
 
-  return board;
+  return { board, scoreIncrease };
 }
 
 export function movePossible(board: BoardType): boolean {

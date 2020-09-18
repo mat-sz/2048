@@ -16,12 +16,14 @@ export interface StateType {
   boardSize: number;
   board: BoardType;
   defeat: boolean;
+  score: number;
 }
 
 let initialState: StateType = {
   boardSize: boardSize,
   board: initializeBoard(boardSize),
   defeat: false,
+  score: 0,
 };
 
 export type StoreType = Store<StateType, ActionModel>;
@@ -32,10 +34,13 @@ function applicationState(state = initialState, action: ActionModel) {
   switch (action.type) {
     case ActionType.RESET:
       newState.board = initializeBoard(newState.boardSize);
+      newState.score = 0;
       break;
     case ActionType.MOVE:
       const direction = action.value as Direction;
-      newState.board = updateBoard(newState.board, direction);
+      const update = updateBoard(newState.board, direction);
+      newState.board = update.board;
+      newState.score += update.scoreIncrease;
       break;
     default:
       return state;

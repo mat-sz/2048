@@ -9,6 +9,7 @@ import {
   movePossible,
 } from '../functions/board';
 import { Direction } from '../types/Direction';
+import { getStoredData, setStoredData } from '../functions/localStorage';
 
 const boardSize = parseInt(process.env.REACT_APP_BOARD_SIZE || '4') || 4;
 
@@ -17,13 +18,17 @@ export interface StateType {
   board: BoardType;
   defeat: boolean;
   score: number;
+  best: number;
 }
 
+const storedData = getStoredData();
+
 let initialState: StateType = {
-  boardSize: boardSize,
-  board: initializeBoard(boardSize),
-  defeat: false,
-  score: 0,
+  boardSize: storedData.boardSize || boardSize,
+  board: storedData.board || initializeBoard(boardSize),
+  defeat: storedData.defeat || false,
+  score: storedData.score || 0,
+  best: storedData.best || 0,
 };
 
 export type StoreType = Store<StateType, ActionModel>;
@@ -47,6 +52,7 @@ function applicationState(state = initialState, action: ActionModel) {
   }
 
   newState.defeat = !movePossible(newState.board);
+  setStoredData(newState);
 
   return newState;
 }

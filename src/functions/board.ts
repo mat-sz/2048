@@ -28,7 +28,12 @@ export function newTile(board: BoardType): BoardType {
 
 export function initializeBoard(boardSize: number): BoardType {
   const board = new Array(boardSize ** 2).fill(0);
-  return [...newTile(board)];
+
+  // Spawn two tiles at first.
+  newTile(board);
+  newTile(board);
+
+  return board;
 }
 
 function rotateBoard(

@@ -51,6 +51,10 @@ function applicationState(state = initialState, action: ActionModel) {
       return state;
   }
 
+  if (newState.score > newState.best) {
+    newState.best = newState.score;
+  }
+
   newState.defeat = !movePossible(newState.board);
   setStoredData(newState);
 

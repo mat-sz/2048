@@ -55,12 +55,15 @@ button {
   }
 
   &-scores {
+    display: flex;
+
     &-score {
       background: #bbada0;
       padding: 1px 25px;
       border-radius: 6px;
       font-weight: bold;
       text-align: center;
+      margin-left: 5px;
 
       div:first-child {
         color: #eee4da;

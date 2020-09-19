@@ -4,9 +4,11 @@ import { resetAction } from '../actions';
 import { StateType } from '../reducers';
 
 const Header: React.FC = () => {
-  const score = useSelector((state: StateType) => state.score);
   const dispatch = useDispatch();
   const reset = useCallback(() => dispatch(resetAction()), [dispatch]);
+
+  const score = useSelector((state: StateType) => state.score);
+  const best = useSelector((state: StateType) => state.best);
 
   return (
     <div className="header">
@@ -16,6 +18,10 @@ const Header: React.FC = () => {
           <div className="header-scores-score">
             <div>Score</div>
             <div>{score}</div>
+          </div>
+          <div className="header-scores-score">
+            <div>Best</div>
+            <div>{best}</div>
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
+import Header from '../components/Header';
 import Board from '../components/Board';
 import { moveAction } from '../actions';
 import { Direction } from '../types/Direction';
@@ -35,7 +36,7 @@ const Home: React.FC = () => {
 
   return (
     <div className="page">
-      <h1>2048</h1>
+      <Header />
       <Board />
     </div>
   );

@@ -27,6 +27,34 @@ h1 {
   margin: 0 auto;
 }
 
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &-scores {
+    &-score {
+      background: #bbada0;
+      padding: 1px 25px;
+      border-radius: 6px;
+      font-weight: bold;
+      text-align: center;
+
+      div:first-child {
+        color: #eee4da;
+        text-transform: uppercase;
+        font-size: 13px;
+        margin-top: 5px;
+      }
+
+      div:last-child {
+        color: white;
+        font-size: 25px;
+      }
+    }
+  }
+}
+
 .board {
   background: #bbada0;
   border-radius: 6px;

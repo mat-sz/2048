@@ -20,6 +20,23 @@ body {
 
 h1 {
   font-size: 4rem;
+  margin: 0;
+}
+
+button {
+  background: #8f7a66;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  transition: 0.1s ease-in-out all;
+
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
 .page {
@@ -28,9 +45,14 @@ h1 {
 }
 
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  padding: 2rem 0;
+  font-size: 1.1rem;
+
+  &-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
   &-scores {
     &-score {

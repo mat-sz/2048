@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import Header from '../components/Header';
@@ -9,20 +9,25 @@ import { Direction } from '../types/Direction';
 const Home: React.FC = () => {
   const dispatch = useDispatch();
 
+  const onMove = useCallback(
+    (direction: Direction) => dispatch(moveAction(direction)),
+    [dispatch]
+  );
+
   useEffect(() => {
     const keydownListener = (e: KeyboardEvent) => {
       switch (e.key) {
         case 'ArrowDown':
-          dispatch(moveAction(Direction.DOWN));
+          onMove(Direction.DOWN);
           break;
         case 'ArrowUp':
-          dispatch(moveAction(Direction.UP));
+          onMove(Direction.UP);
           break;
         case 'ArrowLeft':
-          dispatch(moveAction(Direction.LEFT));
+          onMove(Direction.LEFT);
           break;
         case 'ArrowRight':
-          dispatch(moveAction(Direction.RIGHT));
+          onMove(Direction.RIGHT);
           break;
       }
     };
@@ -32,12 +37,12 @@ const Home: React.FC = () => {
     return () => {
       window.removeEventListener('keydown', keydownListener);
     };
-  }, [dispatch]);
+  }, [onMove]);
 
   return (
     <div className="page">
       <Header />
-      <Board />
+      <Board onMove={onMove} />
     </div>
   );
 };

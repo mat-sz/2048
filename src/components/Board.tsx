@@ -24,6 +24,11 @@ const Board: React.FC<BoardProps> = ({ onMove }) => {
         return;
       }
 
+      const distance = Math.sqrt((b.y - a.y) ** 2 + (b.x - a.x) ** 2);
+      if (distance < 20) {
+        return;
+      }
+
       const angle = (Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI;
       if (angle < -135 || angle > 135) {
         onMove(Direction.LEFT);

@@ -87,8 +87,9 @@ button {
   grid-template-columns: repeat(var(--board-size), 1fr);
   gap: 1rem;
   padding: 1rem;
+  user-select: none;
 
-  .board-tile {
+  &-tile {
     position: relative;
     border-radius: 3px;
     padding-bottom: 100%;

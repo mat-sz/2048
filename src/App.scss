@@ -97,6 +97,7 @@ button {
     padding-bottom: 100%;
     background: #cdc1b4;
     line-height: 0;
+    font-size: 55px;
 
     &-not-empty {
       background: #3c3a32;
@@ -131,22 +132,27 @@ button {
 
     &-128 {
       background: #edcf72;
+      font-size: 45px;
     }
 
     &-256 {
       background: #edcc61;
+      font-size: 45px;
     }
 
     &-512 {
       background: #edc850;
+      font-size: 45px;
     }
 
     &-1024 {
       background: #edc53f;
+      font-size: 35px;
     }
 
     &-2048 {
       background: #edc22e;
+      font-size: 35px;
     }
 
     &-text {
@@ -156,7 +162,6 @@ button {
       left: 0;
       right: 0;
 
-      font-size: 55px;
       font-weight: bold;
       display: flex;
       justify-content: center;

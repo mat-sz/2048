@@ -99,58 +99,58 @@ button {
     line-height: 0;
     font-size: 55px;
 
-    &-not-empty {
+    &-not-empty &-text {
       background: #3c3a32;
       color: #f9f6f2;
     }
 
-    &-2 {
+    &-2 &-text {
       background: #eee4da;
       color: #776e65;
     }
 
-    &-4 {
+    &-4 &-text {
       background: #ede0c8;
       color: #776e65;
     }
 
-    &-8 {
+    &-8 &-text {
       background: #f2b179;
     }
 
-    &-16 {
+    &-16 &-text {
       background: #f59563;
     }
 
-    &-32 {
+    &-32 &-text {
       background: #f67c5f;
     }
 
-    &-64 {
+    &-64 &-text {
       background: #f65e3b;
     }
 
-    &-128 {
+    &-128 &-text {
       background: #edcf72;
       font-size: 45px;
     }
 
-    &-256 {
+    &-256 &-text {
       background: #edcc61;
       font-size: 45px;
     }
 
-    &-512 {
+    &-512 &-text {
       background: #edc850;
       font-size: 45px;
     }
 
-    &-1024 {
+    &-1024 &-text {
       background: #edc53f;
       font-size: 35px;
     }
 
-    &-2048 {
+    &-2048 &-text {
       background: #edc22e;
       font-size: 35px;
     }
@@ -167,6 +167,19 @@ button {
       justify-content: center;
       align-items: center;
       line-height: 0;
+      border-radius: 3px;
+
+      animation: tile-appear 0.2s ease-in-out;
     }
+  }
+}
+
+@keyframes tile-appear {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
   }
 }

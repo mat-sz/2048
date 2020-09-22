@@ -110,7 +110,7 @@ const Board: React.FC<BoardProps> = ({ onMove }) => {
           }
           key={i}
         >
-          <div className="board-tile-text">{value !== 0 && value}</div>
+          {value !== 0 && <div className="board-tile-text">{value}</div>}
         </div>
       ))}
     </div>

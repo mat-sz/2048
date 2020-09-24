@@ -52,4 +52,35 @@ describe('board', () => {
     // Make sure a new tile is generated.
     expect(update.board.filter(value => value !== 0).length).toBe(2);
   });
+
+  it('merges two tiles of the same value together', () => {
+    const board = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 4];
+    const update = updateBoard(board, Direction.DOWN);
+    expect(update.board[15]).toBe(8);
+    expect(update.scoreIncrease).toBe(8);
+
+    // Make sure a new tile is generated.
+    expect(update.board.filter(value => value !== 0).length).toBe(2);
+  });
+
+  it("doesn't merge different tiles together", () => {
+    const board = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 4];
+    const update = updateBoard(board, Direction.DOWN);
+    expect(update.board[15]).toBe(4);
+    expect(update.scoreIncrease).toBe(0);
+
+    // Make sure a new tile is generated.
+    expect(update.board.filter(value => value !== 0).length).toBe(3);
+  });
+
+  it('merges tiles in a non-greedy fashion', () => {
+    const board = [0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2];
+    const update = updateBoard(board, Direction.DOWN);
+    expect(update.board[15]).toBe(4);
+    expect(update.board[11]).toBe(4);
+    expect(update.scoreIncrease).toBe(8);
+
+    // Make sure a new tile is generated.
+    expect(update.board.filter(value => value !== 0).length).toBe(3);
+  });
 });

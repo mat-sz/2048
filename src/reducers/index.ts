@@ -23,13 +23,19 @@ export interface StateType {
 
 const storedData = getStoredData();
 
-let initialState: StateType = {
-  boardSize: storedData.boardSize || boardSize,
-  board: storedData.board || initializeBoard(boardSize),
-  defeat: storedData.defeat || false,
-  score: storedData.score || 0,
-  best: storedData.best || 0,
-};
+function initializeState(): StateType {
+  const update = initializeBoard(boardSize);
+
+  return {
+    boardSize: storedData.boardSize || boardSize,
+    board: storedData.board || update.board,
+    defeat: storedData.defeat || false,
+    score: storedData.score || 0,
+    best: storedData.best || 0,
+  };
+}
+
+let initialState: StateType = initializeState();
 
 export type StoreType = Store<StateType, ActionModel>;
 
@@ -38,14 +44,19 @@ function applicationState(state = initialState, action: ActionModel) {
 
   switch (action.type) {
     case ActionType.RESET:
-      newState.board = initializeBoard(newState.boardSize);
-      newState.score = 0;
+      {
+        const update = initializeBoard(newState.boardSize);
+        newState.board = update.board;
+        newState.score = 0;
+      }
       break;
     case ActionType.MOVE:
-      const direction = action.value as Direction;
-      const update = updateBoard(newState.board, direction);
-      newState.board = update.board;
-      newState.score += update.scoreIncrease;
+      {
+        const direction = action.value as Direction;
+        const update = updateBoard(newState.board, direction);
+        newState.board = update.board;
+        newState.score += update.scoreIncrease;
+      }
       break;
     default:
       return state;

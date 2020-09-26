@@ -11,30 +11,60 @@ function containsEmpty(board: BoardType): boolean {
   return board.find(value => value === 0) === 0;
 }
 
-export function newTile(board: BoardType): BoardType {
+interface NewTileResult {
+  board: BoardType;
+  index?: number;
+}
+
+function newTile(board: BoardType): NewTileResult {
   if (!containsEmpty(board)) {
-    return board;
+    return { board };
   }
 
+  let index: number | undefined = undefined;
+
   while (true) {
-    const index = Math.floor(Math.random() * board.length);
+    index = Math.floor(Math.random() * board.length);
     if (board[index] === 0) {
       board[index] = newTileValue();
       break;
     }
   }
 
-  return board;
+  return {
+    board,
+    index,
+  };
 }
 
-export function initializeBoard(boardSize: number): BoardType {
+export interface BoardUpdate {
+  board: BoardType;
+  animations?: Animation[];
+  scoreIncrease: number;
+}
+
+export function initializeBoard(boardSize: number): BoardUpdate {
   const board = new Array(boardSize ** 2).fill(0);
+  const animations: Animation[] = [];
 
   // Spawn two tiles at first.
-  newTile(board);
-  newTile(board);
+  let result = newTile(board);
+  if (result.index) {
+    animations.push({
+      type: 'new',
+      index: result.index,
+    });
+  }
 
-  return board;
+  result = newTile(board);
+  if (result.index) {
+    animations.push({
+      type: 'new',
+      index: result.index,
+    });
+  }
+
+  return { board, scoreIncrease: 0 };
 }
 
 function getRotatedIndex(
@@ -129,11 +159,6 @@ function rotateAnimations(
   return animations;
 }
 
-export interface BoardUpdate {
-  board: BoardType;
-  scoreIncrease: number;
-}
-
 export function updateBoard(
   board: BoardType,
   direction: Direction
@@ -179,7 +204,15 @@ export function updateBoard(
 
   // Generate a new tile on change.
   if (changed) {
-    board = newTile(board);
+    const result = newTile(board);
+    board = result.board;
+
+    if (result.index) {
+      animations.push({
+        type: 'new',
+        index: result.index,
+      });
+    }
   }
 
   return { board, scoreIncrease };

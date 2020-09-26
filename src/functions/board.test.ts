@@ -8,9 +8,11 @@ describe('board', () => {
 
   it('initializes board with two non-zero tiles', () => {
     const boardSize = 4;
-    const board = initializeBoard(boardSize);
-    expect(board.length).toBe(boardSize ** 2);
-    expect(board.filter(value => value === 0).length).toBe(boardSize ** 2 - 2);
+    const update = initializeBoard(boardSize);
+    expect(update.board.length).toBe(boardSize ** 2);
+    expect(update.board.filter(value => value === 0).length).toBe(
+      boardSize ** 2 - 2
+    );
   });
 
   it('moves tiles down', () => {

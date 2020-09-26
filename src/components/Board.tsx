@@ -2,11 +2,7 @@ import React, { useCallback, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { StateType } from '../reducers';
 import { Direction } from '../types/Direction';
-
-interface Point {
-  x: number;
-  y: number;
-}
+import { Point } from '../types/Models';
 
 export interface BoardProps {
   onMove?: (direction: Direction) => void;

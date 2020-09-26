@@ -1,4 +1,5 @@
 import { Direction } from '../types/Direction';
+import { Animation, Point } from '../types/Models';
 
 export type BoardType = number[];
 
@@ -36,6 +37,38 @@ export function initializeBoard(boardSize: number): BoardType {
   return board;
 }
 
+function getRotatedIndex(
+  index: number,
+  boardSize: number,
+  direction: Direction
+): number {
+  let x = index % boardSize;
+  let y = Math.floor(index / boardSize);
+
+  switch (direction) {
+    case Direction.LEFT:
+      {
+        const temp = y;
+        y = boardSize - 1 - x;
+        x = temp;
+      }
+      break;
+    case Direction.RIGHT:
+      {
+        const temp = x;
+        x = boardSize - 1 - y;
+        y = temp;
+      }
+      break;
+    case Direction.UP:
+      x = boardSize - 1 - x;
+      y = boardSize - 1 - y;
+      break;
+  }
+
+  return y * boardSize + x;
+}
+
 function rotateBoard(
   board: BoardType,
   direction: Direction,
@@ -61,34 +94,39 @@ function rotateBoard(
   }
 
   for (let i = 0; i < board.length; i++) {
-    let x = i % boardSize;
-    let y = Math.floor(i / boardSize);
-
-    switch (direction) {
-      case Direction.LEFT:
-        {
-          const temp = y;
-          y = boardSize - 1 - x;
-          x = temp;
-        }
-        break;
-      case Direction.RIGHT:
-        {
-          const temp = x;
-          x = boardSize - 1 - y;
-          y = temp;
-        }
-        break;
-      case Direction.UP:
-        x = boardSize - 1 - x;
-        y = boardSize - 1 - y;
-        break;
-    }
-
-    newBoard[y * boardSize + x] = board[i];
+    const index = getRotatedIndex(i, boardSize, direction);
+    newBoard[index] = board[i];
   }
 
   return newBoard;
+}
+
+function rotateAnimations(
+  board: BoardType,
+  animations: Animation[],
+  direction: Direction
+): Animation[] {
+  // No need to rotate, it's already in the correct orientation.
+  if (direction === Direction.DOWN) {
+    return animations;
+  }
+
+  const boardSize = Math.sqrt(board.length);
+
+  switch (direction) {
+    case Direction.LEFT:
+      direction = Direction.RIGHT;
+      break;
+    case Direction.RIGHT:
+      direction = Direction.LEFT;
+      break;
+  }
+
+  for (let animation of animations) {
+    animation.index = getRotatedIndex(animation.index, boardSize, direction);
+  }
+
+  return animations;
 }
 
 export interface BoardUpdate {
@@ -107,6 +145,7 @@ export function updateBoard(
 
   let changed = false;
   let scoreIncrease = 0;
+  let animations: Animation[] = [];
 
   // Going from second last to the first row on the rotated board.
   for (let row = boardSize - 2; row >= 0; row--) {
@@ -119,7 +158,7 @@ export function updateBoard(
         changed = true;
 
         if (board[below] !== 0) {
-          // Ensure non-greedy behavior, only allow first merge after downfall.
+          // Ensure non-greedy behavior, only allow first merge after fall.
           mergeSame = false;
 
           scoreIncrease += board[i] * 2;
@@ -136,6 +175,7 @@ export function updateBoard(
 
   // Undo board rotation.
   board = rotateBoard(board, direction, true);
+  animations = rotateAnimations(board, animations, direction);
 
   // Generate a new tile on change.
   if (changed) {

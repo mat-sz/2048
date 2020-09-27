@@ -1,8 +1,10 @@
 import React, { useCallback, useRef } from 'react';
 import { useSelector } from 'react-redux';
+
 import { StateType } from '../reducers';
 import { Direction } from '../types/Direction';
 import { Point } from '../types/Models';
+import BoardTile from './BoardTile';
 
 export interface BoardProps {
   onMove?: (direction: Direction) => void;
@@ -97,17 +99,7 @@ const Board: React.FC<BoardProps> = ({ onMove }) => {
       onTouchEnd={onTouchEnd}
     >
       {board.map((value, i) => (
-        <div
-          className={
-            'board-tile ' +
-            (value === 0
-              ? 'board-tile-empty'
-              : 'board-tile-not-empty board-tile-' + value)
-          }
-          key={i}
-        >
-          {value !== 0 && <div className="board-tile-text">{value}</div>}
-        </div>
+        <BoardTile value={value} key={i} />
       ))}
     </div>
   );

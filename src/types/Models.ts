@@ -21,12 +21,17 @@ export interface Point {
 }
 
 export interface AnimationModel {
-  type: 'new' | 'move';
+  type: 'new' | 'merge' | 'move';
   index: number;
 }
 
 export interface AnimationNew extends AnimationModel {
   type: 'new';
+  index: number;
+}
+
+export interface AnimationMerge extends AnimationModel {
+  type: 'merge';
   index: number;
 }
 
@@ -37,4 +42,4 @@ export interface AnimationMove extends AnimationModel {
   value: number;
 }
 
-export type Animation = AnimationNew | AnimationMove;
+export type Animation = AnimationNew | AnimationMerge | AnimationMove;

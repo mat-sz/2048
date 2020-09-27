@@ -182,15 +182,15 @@ export function updateBoard(
 
       let i = initialIndex;
       let below = i + boardSize;
-      let mergeSame = true;
+      let merged = false;
       let finalIndex: number | undefined = undefined;
 
-      while (board[below] === 0 || (mergeSame && board[i] === board[below])) {
+      while (board[below] === 0 || (!merged && board[i] === board[below])) {
         changed = true;
 
         if (board[below] !== 0) {
           // Ensure non-greedy behavior, only allow first merge after fall.
-          mergeSame = false;
+          merged = true;
 
           scoreIncrease += board[i] * 2;
         }
@@ -210,6 +210,13 @@ export function updateBoard(
           direction,
           value: Math.floor((finalIndex - initialIndex) / boardSize),
         });
+
+        if (merged) {
+          animations.push({
+            type: 'merge',
+            index: finalIndex,
+          });
+        }
       }
     }
   }

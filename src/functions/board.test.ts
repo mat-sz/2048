@@ -72,7 +72,7 @@ describe('board', () => {
     expect(update.scoreIncrease).toBe(0);
 
     // Make sure a new tile is generated.
-    expect(update.board.filter(value => value !== 0).length).toBe(3);
+    expect(update.board.filter(value => value !== 0).length).toBe(2);
   });
 
   it('merges tiles in a non-greedy fashion', () => {

@@ -1,5 +1,5 @@
 import { Direction } from '../types/Direction';
-import { Animation, Point } from '../types/Models';
+import { Animation } from '../types/Models';
 
 export type BoardType = number[];
 
@@ -176,6 +176,10 @@ export function updateBoard(
   for (let row = boardSize - 2; row >= 0; row--) {
     for (let col = 0; col < boardSize; col++) {
       const initialIndex = row * boardSize + col;
+      if (board[initialIndex] === 0) {
+        continue;
+      }
+
       let i = initialIndex;
       let below = i + boardSize;
       let mergeSame = true;
@@ -226,7 +230,6 @@ export function updateBoard(
       });
     }
   }
-  console.log(animations);
 
   return { board, scoreIncrease };
 }

@@ -175,9 +175,11 @@ export function updateBoard(
   // Going from second last to the first row on the rotated board.
   for (let row = boardSize - 2; row >= 0; row--) {
     for (let col = 0; col < boardSize; col++) {
-      let i = row * boardSize + col;
+      const initialIndex = row * boardSize + col;
+      let i = initialIndex;
       let below = i + boardSize;
       let mergeSame = true;
+      let finalIndex: number | undefined = undefined;
 
       while (board[below] === 0 || (mergeSame && board[i] === board[below])) {
         changed = true;
@@ -193,7 +195,17 @@ export function updateBoard(
         board[below] += board[i];
         board[i] = 0;
         i = below;
+        finalIndex = below;
         below = i + boardSize;
+      }
+
+      if (finalIndex !== undefined) {
+        animations.push({
+          type: 'move',
+          index: initialIndex,
+          direction,
+          value: Math.floor((finalIndex - initialIndex) / boardSize),
+        });
       }
     }
   }
@@ -214,6 +226,7 @@ export function updateBoard(
       });
     }
   }
+  console.log(animations);
 
   return { board, scoreIncrease };
 }

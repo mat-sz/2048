@@ -28,13 +28,13 @@ export interface AnimationModel {
 export interface AnimationNew extends AnimationModel {
   type: 'new';
   index: number;
-  direction: Direction;
-  value: number;
 }
 
 export interface AnimationMove extends AnimationModel {
   type: 'move';
   index: number;
+  direction: Direction;
+  value: number;
 }
 
-export type Animation = AnimationNew | AnimationModel;
+export type Animation = AnimationNew | AnimationMove;

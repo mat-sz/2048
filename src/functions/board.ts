@@ -1,5 +1,5 @@
 import { Direction } from '../types/Direction';
-import { Animation } from '../types/Models';
+import { Animation, AnimationType } from '../types/Animations';
 
 export type BoardType = number[];
 
@@ -51,7 +51,7 @@ export function initializeBoard(boardSize: number): BoardUpdate {
   let result = newTile(board);
   if (result.index) {
     animations.push({
-      type: 'new',
+      type: AnimationType.NEW,
       index: result.index,
     });
   }
@@ -59,7 +59,7 @@ export function initializeBoard(boardSize: number): BoardUpdate {
   result = newTile(board);
   if (result.index) {
     animations.push({
-      type: 'new',
+      type: AnimationType.NEW,
       index: result.index,
     });
   }
@@ -205,7 +205,7 @@ export function updateBoard(
 
       if (finalIndex !== undefined) {
         animations.push({
-          type: 'move',
+          type: AnimationType.MOVE,
           index: initialIndex,
           direction,
           value: Math.floor((finalIndex - initialIndex) / boardSize),
@@ -213,7 +213,7 @@ export function updateBoard(
 
         if (merged) {
           animations.push({
-            type: 'merge',
+            type: AnimationType.MERGE,
             index: finalIndex,
           });
         }
@@ -232,7 +232,7 @@ export function updateBoard(
 
     if (result.index) {
       animations.push({
-        type: 'new',
+        type: AnimationType.NEW,
         index: result.index,
       });
     }

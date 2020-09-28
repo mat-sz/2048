@@ -60,5 +60,14 @@ export function getStoredData(): StorageModel {
 }
 
 export function setStoredData(model: StorageModel) {
-  localStorage.setItem(ITEM_NAME, JSON.stringify(model));
+  localStorage.setItem(
+    ITEM_NAME,
+    JSON.stringify({
+      best: model.best,
+      score: model.score,
+      board: model.board,
+      boardSize: model.boardSize,
+      defeat: model.defeat,
+    })
+  );
 }

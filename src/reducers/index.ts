@@ -10,6 +10,7 @@ import {
 } from '../functions/board';
 import { Direction } from '../types/Direction';
 import { getStoredData, setStoredData } from '../functions/localStorage';
+import { Animation } from '../types/Animations';
 
 const boardSize = parseInt(process.env.REACT_APP_BOARD_SIZE || '4') || 4;
 
@@ -19,6 +20,7 @@ export interface StateType {
   defeat: boolean;
   score: number;
   best: number;
+  animations?: Animation[];
 }
 
 const storedData = getStoredData();
@@ -48,6 +50,7 @@ function applicationState(state = initialState, action: ActionModel) {
         const update = initializeBoard(newState.boardSize);
         newState.board = update.board;
         newState.score = 0;
+        newState.animations = update.animations;
       }
       break;
     case ActionType.MOVE:
@@ -56,6 +59,7 @@ function applicationState(state = initialState, action: ActionModel) {
         const update = updateBoard(newState.board, direction);
         newState.board = update.board;
         newState.score += update.scoreIncrease;
+        newState.animations = update.animations;
       }
       break;
     default:

@@ -64,7 +64,7 @@ export function initializeBoard(boardSize: number): BoardUpdate {
     });
   }
 
-  return { board, scoreIncrease: 0 };
+  return { board, scoreIncrease: 0, animations };
 }
 
 function getRotatedIndex(
@@ -238,7 +238,7 @@ export function updateBoard(
     }
   }
 
-  return { board, scoreIncrease };
+  return { board, scoreIncrease, animations };
 }
 
 export function movePossible(board: BoardType): boolean {

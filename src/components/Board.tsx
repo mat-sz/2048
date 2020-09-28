@@ -1,9 +1,11 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { StateType } from '../reducers';
 import { Direction } from '../types/Direction';
 import { Point } from '../types/Models';
+import { BoardType } from '../functions/board';
+import { Animation, AnimationType } from '../types/Animations';
 import BoardTile from './BoardTile';
 
 export interface BoardProps {
@@ -13,8 +15,14 @@ export interface BoardProps {
 const Board: React.FC<BoardProps> = ({ onMove }) => {
   const board = useSelector((state: StateType) => state.board);
   const boardSize = useSelector((state: StateType) => state.boardSize);
+  const animations = useSelector((state: StateType) => state.animations);
   const startPointerLocation = useRef<Point>();
   const currentPointerLocation = useRef<Point>();
+
+  const [renderedBoard, setRenderedBoard] = useState(board);
+  const [renderedAnimations, setRenderedAnimations] = useState<Animation[]>([]);
+  const lastBoard = useRef<BoardType>([...board]);
+  const animationTimeout = useRef<any>();
 
   const finishPointer = useCallback(
     (a: Point, b: Point) => {
@@ -87,6 +95,28 @@ const Board: React.FC<BoardProps> = ({ onMove }) => {
     [finishPointer]
   );
 
+  useEffect(() => {
+    if (!animations) {
+      setRenderedBoard([...board]);
+      return;
+    }
+
+    setRenderedBoard(lastBoard.current);
+    setRenderedAnimations(
+      animations.filter(animation => animation.type === AnimationType.MOVE)
+    );
+
+    clearTimeout(animationTimeout.current);
+    animationTimeout.current = setTimeout(() => {
+      setRenderedBoard([...board]);
+      setRenderedAnimations(
+        animations.filter(animation => animation.type !== AnimationType.MOVE)
+      );
+    }, 100);
+
+    lastBoard.current = [...board];
+  }, [animations, board, setRenderedBoard, setRenderedAnimations]);
+
   return (
     <div
       className="board"
@@ -98,8 +128,14 @@ const Board: React.FC<BoardProps> = ({ onMove }) => {
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
     >
-      {board.map((value, i) => (
-        <BoardTile value={value} key={i} />
+      {renderedBoard.map((value, i) => (
+        <BoardTile
+          value={value}
+          key={i}
+          animations={renderedAnimations?.filter(
+            animation => animation.index === i
+          )}
+        />
       ))}
     </div>
   );

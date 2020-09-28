@@ -1,10 +1,13 @@
 import React from 'react';
 
+import { Animation } from '../types/Animations';
+
 export interface BoardTileProps {
   value: number;
+  animations?: Animation[];
 }
 
-const BoardTile: React.FC<BoardTileProps> = ({ value }) => {
+const BoardTile: React.FC<BoardTileProps> = ({ value, animations }) => {
   return (
     <div
       className={

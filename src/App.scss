@@ -118,6 +118,10 @@ button {
       z-index: 9;
     }
 
+    &-new {
+      animation: tile-new 0.1s ease-in-out;
+    }
+
     &-2 {
       background: #eee4da;
       color: #776e65;
@@ -171,9 +175,13 @@ button {
   }
 }
 
-@keyframes tile-appear {
+@keyframes tile-new {
   0% {
-    transform: scale(0);
+    transform: scale(0.5);
+  }
+
+  80% {
+    transform: scale(1.1);
   }
 
   100% {

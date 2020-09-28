@@ -16,6 +16,15 @@ const BoardTile: React.FC<BoardTileProps> = ({ value, animations }) => {
       ) as AnimationMove,
     [animations]
   );
+  const newAnimation = useMemo<AnimationMove | undefined>(
+    () =>
+      animations?.find(
+        animation =>
+          animation.type === AnimationType.NEW ||
+          animation.type === AnimationType.MERGE
+      ) as AnimationMove,
+    [animations]
+  );
   const innerDivRef = useRef<HTMLDivElement>(null);
 
   const style = useMemo(() => {
@@ -72,7 +81,12 @@ const BoardTile: React.FC<BoardTileProps> = ({ value, animations }) => {
     <div className="board-tile">
       {value !== 0 && (
         <div
-          className={'board-tile-value board-tile-' + value}
+          className={
+            'board-tile-value board-tile-' +
+            value +
+            ' ' +
+            (newAnimation ? 'board-tile-new' : '')
+          }
           style={style}
           ref={innerDivRef}
         >

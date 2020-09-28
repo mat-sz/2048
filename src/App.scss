@@ -99,63 +99,10 @@ button {
     line-height: 0;
     font-size: 55px;
 
-    &-not-empty &-text {
+    &-value {
       background: #3c3a32;
       color: #f9f6f2;
-    }
 
-    &-2 &-text {
-      background: #eee4da;
-      color: #776e65;
-    }
-
-    &-4 &-text {
-      background: #ede0c8;
-      color: #776e65;
-    }
-
-    &-8 &-text {
-      background: #f2b179;
-    }
-
-    &-16 &-text {
-      background: #f59563;
-    }
-
-    &-32 &-text {
-      background: #f67c5f;
-    }
-
-    &-64 &-text {
-      background: #f65e3b;
-    }
-
-    &-128 &-text {
-      background: #edcf72;
-      font-size: 45px;
-    }
-
-    &-256 &-text {
-      background: #edcc61;
-      font-size: 45px;
-    }
-
-    &-512 &-text {
-      background: #edc850;
-      font-size: 45px;
-    }
-
-    &-1024 &-text {
-      background: #edc53f;
-      font-size: 35px;
-    }
-
-    &-2048 &-text {
-      background: #edc22e;
-      font-size: 35px;
-    }
-
-    &-text {
       position: absolute;
       top: 0;
       bottom: 0;
@@ -169,6 +116,57 @@ button {
       line-height: 0;
       border-radius: 3px;
       z-index: 9;
+    }
+
+    &-2 {
+      background: #eee4da;
+      color: #776e65;
+    }
+
+    &-4 {
+      background: #ede0c8;
+      color: #776e65;
+    }
+
+    &-8 {
+      background: #f2b179;
+    }
+
+    &-16 {
+      background: #f59563;
+    }
+
+    &-32 {
+      background: #f67c5f;
+    }
+
+    &-64 {
+      background: #f65e3b;
+    }
+
+    &-128 {
+      background: #edcf72;
+      font-size: 45px;
+    }
+
+    &-256 {
+      background: #edcc61;
+      font-size: 45px;
+    }
+
+    &-512 {
+      background: #edc850;
+      font-size: 45px;
+    }
+
+    &-1024 {
+      background: #edc53f;
+      font-size: 35px;
+    }
+
+    &-2048 {
+      background: #edc22e;
+      font-size: 35px;
     }
   }
 }

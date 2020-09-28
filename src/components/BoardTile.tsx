@@ -69,16 +69,13 @@ const BoardTile: React.FC<BoardTileProps> = ({ value, animations }) => {
   }, [moveAnimation]);
 
   return (
-    <div
-      className={
-        'board-tile ' +
-        (value === 0
-          ? 'board-tile-empty'
-          : 'board-tile-not-empty board-tile-' + value)
-      }
-    >
+    <div className="board-tile">
       {value !== 0 && (
-        <div className="board-tile-text" style={style} ref={innerDivRef}>
+        <div
+          className={'board-tile-value board-tile-' + value}
+          style={style}
+          ref={innerDivRef}
+        >
           {value}
         </div>
       )}

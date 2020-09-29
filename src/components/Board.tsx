@@ -7,6 +7,7 @@ import { Point } from '../types/Models';
 import { BoardType } from '../functions/board';
 import { Animation, AnimationType } from '../types/Animations';
 import BoardTile from './BoardTile';
+import Defeat from './Defeat';
 
 export interface BoardProps {
   onMove?: (direction: Direction) => void;
@@ -14,6 +15,7 @@ export interface BoardProps {
 
 const Board: React.FC<BoardProps> = ({ onMove }) => {
   const board = useSelector((state: StateType) => state.board);
+  const defeat = useSelector((state: StateType) => state.defeat);
   const boardSize = useSelector((state: StateType) => state.boardSize);
   const animations = useSelector((state: StateType) => state.animations);
   const startPointerLocation = useRef<Point>();
@@ -137,6 +139,7 @@ const Board: React.FC<BoardProps> = ({ onMove }) => {
           )}
         />
       ))}
+      {defeat && <Defeat />}
     </div>
   );
 };

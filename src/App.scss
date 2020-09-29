@@ -94,6 +94,7 @@ button {
 }
 
 .board {
+  position: relative;
   background: #bbada0;
   border-radius: 6px;
   display: grid;
@@ -188,6 +189,37 @@ button {
       background: #edc22e;
       font-size: 35px;
     }
+  }
+}
+
+.defeat {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(238, 228, 218, 0.73);
+  animation: reveal 0.4s ease-in-out;
+
+  h1 {
+    margin-bottom: 0.5em;
+  }
+}
+
+@keyframes reveal {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
 

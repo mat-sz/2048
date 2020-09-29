@@ -103,18 +103,26 @@ const Board: React.FC<BoardProps> = ({ onMove }) => {
       return;
     }
 
-    setRenderedBoard(lastBoard.current);
-    setRenderedAnimations(
-      animations.filter(animation => animation.type === AnimationType.MOVE)
+    const moveAnimations = animations.filter(
+      animation => animation.type === AnimationType.MOVE
+    );
+    const otherAnimations = animations.filter(
+      animation => animation.type !== AnimationType.MOVE
     );
 
-    clearTimeout(animationTimeout.current);
-    animationTimeout.current = setTimeout(() => {
-      setRenderedAnimations(
-        animations.filter(animation => animation.type !== AnimationType.MOVE)
-      );
+    if (moveAnimations.length > 0) {
+      setRenderedBoard(lastBoard.current);
+      setRenderedAnimations(moveAnimations);
+
+      clearTimeout(animationTimeout.current);
+      animationTimeout.current = setTimeout(() => {
+        setRenderedAnimations(otherAnimations);
+        setRenderedBoard([...board]);
+      }, 100);
+    } else {
+      setRenderedAnimations(otherAnimations);
       setRenderedBoard([...board]);
-    }, 100);
+    }
 
     lastBoard.current = [...board];
   }, [animations, board, setRenderedBoard, setRenderedAnimations]);

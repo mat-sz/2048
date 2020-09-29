@@ -1,4 +1,5 @@
 import React, { CSSProperties, useMemo, useRef } from 'react';
+import clsx from 'clsx';
 
 import { Animation, AnimationMove, AnimationType } from '../types/Animations';
 import { Direction } from '../types/Direction';
@@ -19,9 +20,14 @@ const BoardTile: React.FC<BoardTileProps> = ({ value, animations }) => {
   const newAnimation = useMemo<AnimationMove | undefined>(
     () =>
       animations?.find(
-        animation =>
-          animation.type === AnimationType.NEW ||
-          animation.type === AnimationType.MERGE
+        animation => animation.type === AnimationType.NEW
+      ) as AnimationMove,
+    [animations]
+  );
+  const mergeAnimation = useMemo<AnimationMove | undefined>(
+    () =>
+      animations?.find(
+        animation => animation.type === AnimationType.MERGE
       ) as AnimationMove,
     [animations]
   );
@@ -81,12 +87,10 @@ const BoardTile: React.FC<BoardTileProps> = ({ value, animations }) => {
     <div className="board-tile">
       {value !== 0 && (
         <div
-          className={
-            'board-tile-value board-tile-' +
-            value +
-            ' ' +
-            (newAnimation ? 'board-tile-new' : '')
-          }
+          className={clsx('board-tile-value', 'board-tile-' + value, {
+            'board-tile-new': !!newAnimation,
+            'board-tile-merge': !!mergeAnimation,
+          })}
           style={style}
           ref={innerDivRef}
         >

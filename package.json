@@ -12,6 +12,7 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-redux": "^7.1.9",
     "@types/react-router-dom": "^5.1.5",
+    "clsx": "^1.1.1",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
     "node-sass": "^4.13.1",

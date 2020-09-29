@@ -108,10 +108,10 @@ const Board: React.FC<BoardProps> = ({ onMove }) => {
 
     clearTimeout(animationTimeout.current);
     animationTimeout.current = setTimeout(() => {
-      setRenderedBoard([...board]);
       setRenderedAnimations(
         animations.filter(animation => animation.type !== AnimationType.MOVE)
       );
+      setRenderedBoard([...board]);
     }, 100);
 
     lastBoard.current = [...board];

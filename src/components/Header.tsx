@@ -8,6 +8,8 @@ const Header: React.FC = () => {
   const reset = useCallback(() => dispatch(resetAction()), [dispatch]);
 
   const score = useSelector((state: StateType) => state.score);
+  const scoreIncrease = useSelector((state: StateType) => state.scoreIncrease);
+  const moveId = useSelector((state: StateType) => state.moveId);
   const best = useSelector((state: StateType) => state.best);
 
   return (
@@ -18,6 +20,11 @@ const Header: React.FC = () => {
           <div className="header-scores-score">
             <div>Score</div>
             <div>{score}</div>
+            {!!scoreIncrease && (
+              <div className="header-scores-score-increase" key={moveId}>
+                +{scoreIncrease}
+              </div>
+            )}
           </div>
           <div className="header-scores-score">
             <div>Best</div>

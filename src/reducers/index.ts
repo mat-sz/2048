@@ -15,11 +15,28 @@ import { Animation } from '../types/Animations';
 const boardSize = parseInt(process.env.REACT_APP_BOARD_SIZE || '4') || 4;
 
 export interface StateType {
+  /** Board size. Currently always 4. */
   boardSize: number;
+
+  /** Current board. */
   board: BoardType;
+
+  /** Is game over? */
   defeat: boolean;
+
+  /** Current score. */
   score: number;
+
+  /** Score increase after last update. */
+  scoreIncrease?: number;
+
+  /** Best score. */
   best: number;
+
+  /** Used for certain animations. Mainly as a value of the "key" property. */
+  moveId?: string;
+
+  /** Animations after last update. */
   animations?: Animation[];
 }
 
@@ -34,6 +51,7 @@ function initializeState(): StateType {
     defeat: storedData.defeat || false,
     score: storedData.score || 0,
     best: storedData.best || 0,
+    moveId: new Date().getTime().toString(),
   };
 }
 
@@ -60,6 +78,8 @@ function applicationState(state = initialState, action: ActionModel) {
         newState.board = update.board;
         newState.score += update.scoreIncrease;
         newState.animations = update.animations;
+        newState.scoreIncrease = update.scoreIncrease;
+        newState.moveId = new Date().getTime().toString();
       }
       break;
     default:

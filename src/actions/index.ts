@@ -8,6 +8,12 @@ export function resetAction(): ActionModel {
   };
 }
 
+export function undoAction(): ActionModel {
+  return {
+    type: ActionType.UNDO,
+  };
+}
+
 export function moveAction(direction: Direction): ActionModel {
   return {
     type: ActionType.MOVE,

@@ -21,6 +21,9 @@ export interface StateType {
   /** Current board. */
   board: BoardType;
 
+  /** Previous board. */
+  previousBoard?: BoardType;
+
   /** Is game over? */
   defeat: boolean;
 
@@ -69,17 +72,31 @@ function applicationState(state = initialState, action: ActionModel) {
         newState.board = update.board;
         newState.score = 0;
         newState.animations = update.animations;
+        newState.previousBoard = undefined;
       }
       break;
     case ActionType.MOVE:
       {
         const direction = action.value as Direction;
         const update = updateBoard(newState.board, direction);
+        newState.previousBoard = [...newState.board];
         newState.board = update.board;
         newState.score += update.scoreIncrease;
         newState.animations = update.animations;
         newState.scoreIncrease = update.scoreIncrease;
         newState.moveId = new Date().getTime().toString();
+      }
+      break;
+    case ActionType.UNDO:
+      if (!newState.previousBoard) {
+        break;
+      }
+
+      newState.board = newState.previousBoard;
+      newState.previousBoard = undefined;
+
+      if (newState.scoreIncrease) {
+        newState.score -= newState.scoreIncrease;
       }
       break;
     default:

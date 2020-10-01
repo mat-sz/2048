@@ -24,6 +24,9 @@ export interface StateType {
   /** Previous board. */
   previousBoard?: BoardType;
 
+  /** Show victory screen. */
+  victory: boolean;
+
   /** Is game over? */
   defeat: boolean;
 
@@ -52,6 +55,7 @@ function initializeState(): StateType {
     boardSize: storedData.boardSize || boardSize,
     board: storedData.board || update.board,
     defeat: storedData.defeat || false,
+    victory: false,
     score: storedData.score || 0,
     best: storedData.best || 0,
     moveId: new Date().getTime().toString(),
@@ -73,6 +77,7 @@ function applicationState(state = initialState, action: ActionModel) {
         newState.score = 0;
         newState.animations = update.animations;
         newState.previousBoard = undefined;
+        newState.victory = false;
       }
       break;
     case ActionType.MOVE:
@@ -108,6 +113,7 @@ function applicationState(state = initialState, action: ActionModel) {
   }
 
   newState.defeat = !movePossible(newState.board);
+  newState.victory = !!newState.board.find(value => value === 2048);
   setStoredData(newState);
 
   return newState;

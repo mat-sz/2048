@@ -16,14 +16,16 @@ export function getStoredData(): StorageModel {
       data.hasOwnProperty('board') &&
       data.hasOwnProperty('boardSize') &&
       data.hasOwnProperty('score') &&
-      data.hasOwnProperty('defeat')
+      data.hasOwnProperty('defeat') &&
+      data.hasOwnProperty('victoryDismissed')
     ) {
       if (
         Array.isArray(data.board) &&
         typeof data.boardSize === 'number' &&
         data.board.length === data.boardSize ** 2 &&
         typeof data.score === 'number' &&
-        typeof data.defeat === 'boolean'
+        typeof data.defeat === 'boolean' &&
+        typeof data.victoryDismissed === 'boolean'
       ) {
         for (let value of data.board) {
           if (typeof value !== 'number') {
@@ -40,6 +42,7 @@ export function getStoredData(): StorageModel {
         model.boardSize = data.boardSize;
         model.score = data.score;
         model.defeat = data.defeat;
+        model.victoryDismissed = data.victoryDismissed;
       } else {
         throw new Error('Invalid stored data.');
       }
@@ -68,6 +71,7 @@ export function setStoredData(model: StorageModel) {
       board: model.board,
       boardSize: model.boardSize,
       defeat: model.defeat,
+      victoryDismissed: model.victoryDismissed,
     })
   );
 }

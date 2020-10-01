@@ -13,6 +13,7 @@ export interface StorageModel {
   board?: BoardType;
   boardSize?: number;
   defeat?: boolean;
+  victoryDismissed?: boolean;
 }
 
 export interface Point {

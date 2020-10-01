@@ -20,3 +20,9 @@ export function moveAction(direction: Direction): ActionModel {
     value: direction,
   };
 }
+
+export function dismissAction(): ActionModel {
+  return {
+    type: ActionType.DISMISS,
+  };
+}

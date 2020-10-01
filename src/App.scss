@@ -223,6 +223,13 @@ button {
 
   &-victory {
     background: rgba(237, 194, 46, 0.5);
+    color: #f9f6f2;
+  }
+
+  &-buttons {
+    button {
+      margin: 0 5px;
+    }
   }
 
   h1 {

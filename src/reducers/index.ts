@@ -24,11 +24,14 @@ export interface StateType {
   /** Previous board. */
   previousBoard?: BoardType;
 
-  /** Show victory screen. */
+  /** Was 2048 tile found? */
   victory: boolean;
 
   /** Is game over? */
   defeat: boolean;
+
+  /** Should the victory screen be hidden? */
+  victoryDismissed: boolean;
 
   /** Current score. */
   score: number;
@@ -56,6 +59,7 @@ function initializeState(): StateType {
     board: storedData.board || update.board,
     defeat: storedData.defeat || false,
     victory: false,
+    victoryDismissed: storedData.victoryDismissed || false,
     score: storedData.score || 0,
     best: storedData.best || 0,
     moveId: new Date().getTime().toString(),
@@ -78,6 +82,7 @@ function applicationState(state = initialState, action: ActionModel) {
         newState.animations = update.animations;
         newState.previousBoard = undefined;
         newState.victory = false;
+        newState.victoryDismissed = false;
       }
       break;
     case ActionType.MOVE:
@@ -107,6 +112,9 @@ function applicationState(state = initialState, action: ActionModel) {
       if (newState.scoreIncrease) {
         newState.score -= newState.scoreIncrease;
       }
+      break;
+    case ActionType.DISMISS:
+      newState.victoryDismissed = true;
       break;
     default:
       return state;

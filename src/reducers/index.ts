@@ -82,6 +82,10 @@ function applicationState(state = initialState, action: ActionModel) {
       break;
     case ActionType.MOVE:
       {
+        if (newState.defeat) {
+          break;
+        }
+
         const direction = action.value as Direction;
         const update = updateBoard(newState.board, direction);
         newState.previousBoard = [...newState.board];

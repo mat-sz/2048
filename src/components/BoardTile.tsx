@@ -3,6 +3,7 @@ import clsx from 'clsx';
 
 import { Animation, AnimationMove, AnimationType } from '../types/Animations';
 import { Direction } from '../types/Direction';
+import { animationDuration } from '../config';
 
 export interface BoardTileProps {
   value: number;
@@ -77,7 +78,7 @@ const BoardTile: React.FC<BoardTileProps> = ({ value, animations }) => {
     }
 
     if (animating) {
-      value.transition = '0.1s ease-in-out all';
+      value.transition = animationDuration + 'ms ease-in-out all';
     }
 
     return value;

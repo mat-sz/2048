@@ -8,6 +8,7 @@ import { BoardType } from '../functions/board';
 import { Animation, AnimationType } from '../types/Animations';
 import BoardTile from './BoardTile';
 import Overlay from './Overlay';
+import { animationDuration } from '../config';
 
 export interface BoardProps {
   onMove?: (direction: Direction) => void;
@@ -117,7 +118,7 @@ const Board: React.FC<BoardProps> = ({ onMove }) => {
       animationTimeout.current = setTimeout(() => {
         setRenderedAnimations(otherAnimations);
         setRenderedBoard([...board]);
-      }, 100);
+      }, animationDuration);
     } else {
       setRenderedAnimations(otherAnimations);
       setRenderedBoard([...board]);

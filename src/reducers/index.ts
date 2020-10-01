@@ -11,8 +11,7 @@ import {
 import { Direction } from '../types/Direction';
 import { getStoredData, setStoredData } from '../functions/localStorage';
 import { Animation } from '../types/Animations';
-
-const boardSize = parseInt(process.env.REACT_APP_BOARD_SIZE || '4') || 4;
+import { defaultBoardSize, victoryTileValue } from '../config';
 
 export interface StateType {
   /** Board size. Currently always 4. */
@@ -52,10 +51,10 @@ export interface StateType {
 const storedData = getStoredData();
 
 function initializeState(): StateType {
-  const update = initializeBoard(boardSize);
+  const update = initializeBoard(defaultBoardSize);
 
   return {
-    boardSize: storedData.boardSize || boardSize,
+    boardSize: storedData.boardSize || defaultBoardSize,
     board: storedData.board || update.board,
     defeat: storedData.defeat || false,
     victory: false,
@@ -125,7 +124,7 @@ function applicationState(state = initialState, action: ActionModel) {
   }
 
   newState.defeat = !movePossible(newState.board);
-  newState.victory = !!newState.board.find(value => value === 2048);
+  newState.victory = !!newState.board.find(value => value === victoryTileValue);
   setStoredData(newState);
 
   return newState;

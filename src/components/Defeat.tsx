@@ -7,7 +7,7 @@ const Defeat: React.FC = () => {
   const reset = useCallback(() => dispatch(resetAction()), [dispatch]);
 
   return (
-    <div className="defeat">
+    <div className="overlay overlay-defeat">
       <h1>Game over!</h1>
       <button onClick={reset}>Try again</button>
     </div>

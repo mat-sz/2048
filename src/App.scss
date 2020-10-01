@@ -201,7 +201,7 @@ button {
   }
 }
 
-.defeat {
+.overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -216,6 +216,14 @@ button {
 
   background: rgba(238, 228, 218, 0.73);
   animation: reveal 0.4s ease-in-out;
+
+  &-defeat {
+    background: rgba(238, 228, 218, 0.73);
+  }
+
+  &-victory {
+    background: rgba(237, 194, 46, 0.5);
+  }
 
   h1 {
     margin-bottom: 0.5em;

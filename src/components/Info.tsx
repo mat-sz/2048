@@ -4,7 +4,7 @@ const Info: React.FC = () => {
   return (
     <div className="info">
       <p>
-        This is a reimplementation of Gabriele Cirulli's excelent{' '}
+        This is a reimplementation of Gabriele Cirulli's excellent
         <a href="https://play2048.co/">2048</a> game, built with React, Redux
         and TypeScript. Unlike other React-based implementations, only
         functional components are used here. This project doesn't rely on canvas

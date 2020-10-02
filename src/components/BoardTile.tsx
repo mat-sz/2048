@@ -1,4 +1,4 @@
-import React, { CSSProperties, useMemo, useRef } from 'react';
+import React, { CSSProperties, useMemo } from 'react';
 import clsx from 'clsx';
 
 import { Animation, AnimationMove, AnimationType } from '../types/Animations';

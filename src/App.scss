@@ -48,6 +48,7 @@ button {
   max-width: 600px;
   margin: 0 auto;
   padding: 0 20px;
+  font-size: 1.1rem;
 }
 
 .header {
@@ -105,12 +106,21 @@ button {
 .info {
   line-height: 1.65;
   color: #776e65;
-  font-size: 18px;
   font-weight: 500;
 
   a {
     color: #776e65;
     font-weight: bold;
+  }
+}
+
+.size-picker {
+  display: flex;
+  margin: 0 -5px;
+
+  button {
+    flex: 1;
+    margin: 0 5px;
   }
 }
 

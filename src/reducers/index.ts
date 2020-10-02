@@ -75,7 +75,9 @@ function applicationState(state = initialState, action: ActionModel) {
   switch (action.type) {
     case ActionType.RESET:
       {
-        const update = initializeBoard(action.value || newState.boardSize);
+        const size = action.value || newState.boardSize;
+        const update = initializeBoard(size);
+        newState.boardSize = size;
         newState.board = update.board;
         newState.score = 0;
         newState.animations = update.animations;

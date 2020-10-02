@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import Header from '../components/Header';
 import Board from '../components/Board';
+import Info from '../components/Info';
 import { moveAction } from '../actions';
 import { Direction } from '../types/Direction';
 
@@ -43,6 +44,7 @@ const Home: React.FC = () => {
     <div className="page">
       <Header />
       <Board onMove={onMove} />
+      <Info />
     </div>
   );
 };

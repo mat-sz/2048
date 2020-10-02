@@ -102,6 +102,18 @@ button {
   }
 }
 
+.info {
+  line-height: 1.65;
+  color: #776e65;
+  font-size: 18px;
+  font-weight: 500;
+
+  a {
+    color: #776e65;
+    font-weight: bold;
+  }
+}
+
 .board {
   position: relative;
   background: #bbada0;

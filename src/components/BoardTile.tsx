@@ -3,11 +3,15 @@ import clsx from 'clsx';
 
 import { Animation, AnimationMove, AnimationType } from '../types/Animations';
 import { Direction } from '../types/Direction';
-import { animationDuration } from '../config';
+import { animationDuration, gridGap } from '../config';
 
 export interface BoardTileProps {
   value: number;
   animations?: Animation[];
+}
+
+function tileTranslate(axis: 'X' | 'Y', value: number) {
+  return `translate${axis}(calc(${value} * (${gridGap} + 100%))`;
 }
 
 const BoardTile: React.FC<BoardTileProps> = ({ value, animations }) => {
@@ -32,53 +36,29 @@ const BoardTile: React.FC<BoardTileProps> = ({ value, animations }) => {
       ) as AnimationMove,
     [animations]
   );
-  const innerDivRef = useRef<HTMLDivElement>(null);
 
   const style = useMemo(() => {
-    const value: CSSProperties = {};
-    let animating = false;
-    let totalHeight = 100;
-
-    if (innerDivRef.current) {
-      const element = innerDivRef.current;
-      totalHeight = element.clientHeight;
-
-      // Get the grid gap if possible.
-      const gridElement = element.parentElement?.parentElement;
-      if (gridElement) {
-        const computed = window.getComputedStyle(gridElement);
-        const computedGap = parseInt(computed.gridColumnGap);
-        if (computedGap) {
-          totalHeight += computedGap;
-        }
-      }
+    if (!moveAnimation) {
+      return {};
     }
 
-    if (moveAnimation) {
-      animating = true;
+    const value: CSSProperties = {
+      transition: animationDuration + 'ms ease-in-out all',
+    };
 
-      switch (moveAnimation.direction) {
-        case Direction.UP:
-          value.transform =
-            'translateY(-' + moveAnimation.value * totalHeight + 'px)';
-          break;
-        case Direction.DOWN:
-          value.transform =
-            'translateY(' + moveAnimation.value * totalHeight + 'px)';
-          break;
-        case Direction.LEFT:
-          value.transform =
-            'translateX(-' + moveAnimation.value * totalHeight + 'px)';
-          break;
-        case Direction.RIGHT:
-          value.transform =
-            'translateX(' + moveAnimation.value * totalHeight + 'px)';
-          break;
-      }
-    }
-
-    if (animating) {
-      value.transition = animationDuration + 'ms ease-in-out all';
+    switch (moveAnimation.direction) {
+      case Direction.UP:
+        value.transform = tileTranslate('Y', -1 * moveAnimation.value);
+        break;
+      case Direction.DOWN:
+        value.transform = tileTranslate('Y', moveAnimation.value);
+        break;
+      case Direction.LEFT:
+        value.transform = tileTranslate('X', -1 * moveAnimation.value);
+        break;
+      case Direction.RIGHT:
+        value.transform = tileTranslate('X', moveAnimation.value);
+        break;
     }
 
     return value;
@@ -93,7 +73,6 @@ const BoardTile: React.FC<BoardTileProps> = ({ value, animations }) => {
             'board-tile-merge': !!mergeAnimation,
           })}
           style={style}
-          ref={innerDivRef}
         >
           {value}
         </div>

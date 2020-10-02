@@ -120,8 +120,8 @@ button {
   border-radius: 6px;
   display: grid;
   grid-template-columns: repeat(var(--board-size), 1fr);
-  grid-gap: 1rem;
-  padding: 1rem;
+  grid-gap: var(--grid-gap);
+  padding: var(--grid-gap);
   user-select: none;
   touch-action: none;
 

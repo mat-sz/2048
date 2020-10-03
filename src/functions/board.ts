@@ -237,7 +237,7 @@ export function updateBoard(
     const result = newTile(board);
     board = result.board;
 
-    if (result.index) {
+    if (result.index !== undefined) {
       animations.push({
         type: AnimationType.NEW,
         index: result.index,

@@ -142,7 +142,7 @@ button {
     padding-bottom: 100%;
     background: #cdc1b4;
     line-height: 0;
-    font-size: 55px;
+    font-size: 3rem;
 
     &-value {
       background: #3c3a32;
@@ -199,27 +199,27 @@ button {
 
     &-128 {
       background: #edcf72;
-      font-size: 45px;
+      font-size: 0.8em;
     }
 
     &-256 {
       background: #edcc61;
-      font-size: 45px;
+      font-size: 0.8em;
     }
 
     &-512 {
       background: #edc850;
-      font-size: 45px;
+      font-size: 0.8em;
     }
 
     &-1024 {
       background: #edc53f;
-      font-size: 35px;
+      font-size: 0.6em;
     }
 
     &-2048 {
       background: #edc22e;
-      font-size: 35px;
+      font-size: 0.6em;
     }
   }
 }
@@ -303,5 +303,13 @@ button {
   100% {
     opacity: 0;
     transform: translateY(-4rem);
+  }
+}
+
+@media screen and (min-width: 610px) {
+  .board {
+    &-tile {
+      font-size: 3.5rem;
+    }
   }
 }

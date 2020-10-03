@@ -38,7 +38,7 @@ const Header: React.FC = () => {
         <div>
           Join the numbers and get to the <strong>2048 tile!</strong>
         </div>
-        <div>
+        <div className="header-buttons">
           <button onClick={undo} disabled={!previousBoard}>
             Undo
           </button>

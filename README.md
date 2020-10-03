@@ -1,4 +1,4 @@
-<img alt="2048" align="left" width="80" hspace="20" src="https://raw.githubusercontent.com/mat-sz/2048/master/public/logo512.png">
+<img alt="2048" align="left" width="120" hspace="20" src="https://raw.githubusercontent.com/mat-sz/2048/master/public/logo512.png">
 
 # 2048
 

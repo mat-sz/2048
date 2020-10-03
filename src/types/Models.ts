@@ -1,6 +1,5 @@
 import { BoardType } from '../functions/board';
 import { ActionType } from './ActionType';
-import { Direction } from './Direction';
 
 export interface ActionModel {
   type: ActionType;

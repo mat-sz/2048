@@ -51,20 +51,12 @@ const Board: React.FC<BoardProps> = ({ onMove }) => {
     [onMove]
   );
 
-  const onTouchStart = useCallback((e: React.TouchEvent) => {
+  const onTouch = useCallback((e: React.TouchEvent) => {
     e.preventDefault();
     const touch = e.touches[0];
     if (touch) {
       const point: Point = { x: touch.pageX, y: touch.pageY };
       startPointerLocation.current = point;
-    }
-  }, []);
-  const onTouchMove = useCallback((e: React.TouchEvent) => {
-    e.preventDefault();
-    const touch = e.touches[0];
-    if (touch) {
-      const point: Point = { x: touch.pageX, y: touch.pageY };
-      currentPointerLocation.current = point;
     }
   }, []);
   const onTouchEnd = useCallback(
@@ -83,11 +75,11 @@ const Board: React.FC<BoardProps> = ({ onMove }) => {
     [finishPointer]
   );
 
-  const onMouseDown = useCallback((e: React.MouseEvent) => {
+  const onMouse = useCallback((e: React.MouseEvent) => {
     const point: Point = { x: e.pageX, y: e.pageY };
     startPointerLocation.current = point;
   }, []);
-  const onMouseUp = useCallback(
+  const onMouseEnd = useCallback(
     (e: React.MouseEvent) => {
       if (startPointerLocation.current) {
         finishPointer(startPointerLocation.current, { x: e.pageX, y: e.pageY });
@@ -131,11 +123,11 @@ const Board: React.FC<BoardProps> = ({ onMove }) => {
     <div
       className="board"
       style={{ '--board-size': boardSize } as any}
-      onMouseDown={onMouseDown}
-      onMouseUp={onMouseUp}
-      onMouseLeave={onMouseUp}
-      onTouchStart={onTouchStart}
-      onTouchMove={onTouchMove}
+      onMouseDown={onMouse}
+      onMouseUp={onMouseEnd}
+      onMouseLeave={onMouseEnd}
+      onTouchStart={onTouch}
+      onTouchMove={onTouch}
       onTouchEnd={onTouchEnd}
     >
       {renderedBoard.map((value, i) => (

@@ -248,6 +248,7 @@ export function movePossible(board: BoardType): boolean {
     return true;
   }
 
+  // Check if a tile can be merged into a neighboring tile.
   for (let i = 0; i < board.length; i++) {
     if (
       board[i] === board[i + boardSize] ||

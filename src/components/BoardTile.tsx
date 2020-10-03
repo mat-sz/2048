@@ -1,7 +1,13 @@
 import React, { CSSProperties, useMemo } from 'react';
 import clsx from 'clsx';
 
-import { Animation, AnimationMove, AnimationType } from '../types/Animations';
+import {
+  Animation,
+  AnimationMerge,
+  AnimationMove,
+  AnimationNew,
+  AnimationType,
+} from '../types/Animations';
 import { Direction } from '../types/Direction';
 import { animationDuration, gridGap } from '../config';
 
@@ -14,26 +20,24 @@ function tileTranslate(axis: 'X' | 'Y', value: number) {
   return `translate${axis}(calc(${value} * (${gridGap} + 100%))`;
 }
 
+function findAnimation<T extends Animation>(
+  animations: Animation[] | undefined,
+  type: AnimationType
+): T {
+  return animations?.find(animation => animation.type === type) as T;
+}
+
 const BoardTile: React.FC<BoardTileProps> = ({ value, animations }) => {
-  const moveAnimation = useMemo<AnimationMove | undefined>(
-    () =>
-      animations?.find(
-        animation => animation.type === AnimationType.MOVE
-      ) as AnimationMove,
+  const moveAnimation = useMemo(
+    () => findAnimation<AnimationMove>(animations, AnimationType.MOVE),
     [animations]
   );
-  const newAnimation = useMemo<AnimationMove | undefined>(
-    () =>
-      animations?.find(
-        animation => animation.type === AnimationType.NEW
-      ) as AnimationMove,
+  const newAnimation = useMemo(
+    () => findAnimation<AnimationNew>(animations, AnimationType.NEW),
     [animations]
   );
-  const mergeAnimation = useMemo<AnimationMove | undefined>(
-    () =>
-      animations?.find(
-        animation => animation.type === AnimationType.MERGE
-      ) as AnimationMove,
+  const mergeAnimation = useMemo(
+    () => findAnimation<AnimationMerge>(animations, AnimationType.MERGE),
     [animations]
   );
 

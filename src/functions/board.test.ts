@@ -85,4 +85,15 @@ describe('board', () => {
     // Make sure a new tile is generated.
     expect(update.board.filter(value => value !== 0).length).toBe(3);
   });
+
+  it('merges tiles in a non-greedy fashion: another option', () => {
+    const board = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 4, 4];
+    const update = updateBoard(board, Direction.RIGHT);
+    expect(update.board[15]).toBe(8);
+    expect(update.board[14]).toBe(8);
+    expect(update.scoreIncrease).toBe(8);
+
+    // Make sure a new tile is generated.
+    expect(update.board.filter(value => value !== 0).length).toBe(3);
+  });
 });

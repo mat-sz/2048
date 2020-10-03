@@ -171,6 +171,7 @@ export function updateBoard(
   let changed = false;
   let scoreIncrease = 0;
   let animations: Animation[] = [];
+  let lastMergedIndex: number | undefined = undefined;
 
   // Going from second last to the first row on the rotated board.
   for (let row = boardSize - 2; row >= 0; row--) {
@@ -186,6 +187,10 @@ export function updateBoard(
       let finalIndex: number | undefined = undefined;
 
       while (board[below] === 0 || (!merged && board[i] === board[below])) {
+        if (below === lastMergedIndex) {
+          break;
+        }
+
         changed = true;
 
         if (board[below] !== 0) {
@@ -212,6 +217,8 @@ export function updateBoard(
         });
 
         if (merged) {
+          lastMergedIndex = finalIndex;
+
           animations.push({
             type: AnimationType.MERGE,
             index: finalIndex,

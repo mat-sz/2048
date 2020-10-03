@@ -1,6 +1,6 @@
 <img alt="2048" align="left" width="120" hspace="20" src="https://raw.githubusercontent.com/mat-sz/2048/master/public/logo512.png">
 
-# 2048
+# 2048 &bull; [Demo](https://demo.matsz.dev/2048/)
 
 <img alt="workflow" src="https://img.shields.io/github/workflow/status/mat-sz/react-letter/Node.js%20CI%20(yarn)">
 

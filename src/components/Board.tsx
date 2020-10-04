@@ -1,37 +1,63 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { StateType } from '../reducers';
 import { Direction } from '../types/Direction';
 import { Point } from '../types/Models';
 import { BoardType } from '../functions/board';
 import { Animation, AnimationType } from '../types/Animations';
+import { animationDuration } from '../config';
+import { moveAction } from '../actions';
 import BoardTile from './BoardTile';
 import Overlay from './Overlay';
-import { animationDuration } from '../config';
 
-export interface BoardProps {
-  onMove?: (direction: Direction) => void;
-}
-
-const Board: React.FC<BoardProps> = ({ onMove }) => {
+const Board: React.FC = () => {
+  const dispatch = useDispatch();
   const board = useSelector((state: StateType) => state.board);
   const boardSize = useSelector((state: StateType) => state.boardSize);
   const animations = useSelector((state: StateType) => state.animations);
   const startPointerLocation = useRef<Point>();
   const currentPointerLocation = useRef<Point>();
 
+  const onMove = useCallback(
+    (direction: Direction) => dispatch(moveAction(direction)),
+    [dispatch]
+  );
+
   const [renderedBoard, setRenderedBoard] = useState(board);
   const [renderedAnimations, setRenderedAnimations] = useState<Animation[]>([]);
   const lastBoard = useRef<BoardType>([...board]);
   const animationTimeout = useRef<any>();
 
+  useEffect(() => {
+    const keydownListener = (e: KeyboardEvent) => {
+      e.preventDefault();
+
+      switch (e.key) {
+        case 'ArrowDown':
+          onMove(Direction.DOWN);
+          break;
+        case 'ArrowUp':
+          onMove(Direction.UP);
+          break;
+        case 'ArrowLeft':
+          onMove(Direction.LEFT);
+          break;
+        case 'ArrowRight':
+          onMove(Direction.RIGHT);
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', keydownListener);
+
+    return () => {
+      window.removeEventListener('keydown', keydownListener);
+    };
+  }, [onMove]);
+
   const finishPointer = useCallback(
     (a: Point, b: Point) => {
-      if (!onMove) {
-        return;
-      }
-
       const distance = Math.sqrt((b.y - a.y) ** 2 + (b.x - a.x) ** 2);
       if (distance < 20) {
         return;

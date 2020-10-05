@@ -155,7 +155,7 @@ const Board: React.FC = () => {
 
   return (
     <div
-      className="board"
+      className={`board board-${boardSize}`}
       style={{ '--board-size': boardSize } as any}
       onMouseDown={onMouseStart}
       onMouseUp={onMouseEnd}

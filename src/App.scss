@@ -81,13 +81,14 @@ button {
       div:first-child {
         color: #eee4da;
         text-transform: uppercase;
-        font-size: 13px;
+        font-size: 0.8rem;
         margin-top: 5px;
       }
 
       div:nth-child(2) {
         color: white;
-        font-size: 25px;
+        margin-top: -5px;
+        font-size: 1.6rem;
       }
 
       &-increase {
@@ -96,7 +97,7 @@ button {
         left: 0;
         right: 0;
         text-align: center;
-        font-size: 25px;
+        font-size: 1.6rem;
         opacity: 0;
         animation: score-increase 0.3s ease-in-out;
       }

@@ -173,9 +173,9 @@ export function updateBoard(
   let animations: Animation[] = [];
   let lastMergedIndex: number | undefined = undefined;
 
-  // Going from second last to the first row on the rotated board.
-  for (let row = boardSize - 2; row >= 0; row--) {
-    for (let col = 0; col < boardSize; col++) {
+  for (let col = 0; col < boardSize; col++) {
+    // Going from second last to the first row on the rotated board.
+    for (let row = boardSize - 2; row >= 0; row--) {
       const initialIndex = row * boardSize + col;
       if (board[initialIndex] === 0) {
         continue;

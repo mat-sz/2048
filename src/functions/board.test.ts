@@ -75,7 +75,7 @@ describe('board', () => {
     expect(update.board.filter(value => value !== 0).length).toBe(2);
   });
 
-  it('merges tiles in a non-greedy fashion', () => {
+  it('merges tiles in a non-greedy fashion: variant #1', () => {
     const board = [0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 2];
     const update = updateBoard(board, Direction.DOWN);
     expect(update.board[15]).toBe(4);
@@ -86,7 +86,7 @@ describe('board', () => {
     expect(update.board.filter(value => value !== 0).length).toBe(3);
   });
 
-  it('merges tiles in a non-greedy fashion: another option', () => {
+  it('merges tiles in a non-greedy fashion: variant #2', () => {
     const board = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 4, 4];
     const update = updateBoard(board, Direction.RIGHT);
     expect(update.board[15]).toBe(8);
@@ -95,5 +95,14 @@ describe('board', () => {
 
     // Make sure a new tile is generated.
     expect(update.board.filter(value => value !== 0).length).toBe(3);
+  });
+
+  it('merges tiles in a non-greedy fashion: variant #3', () => {
+    const board = [0, 0, 0, 2, 0, 4, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2];
+    const update = updateBoard(board, Direction.DOWN);
+    expect(update.board[13]).toBe(4);
+
+    // Make sure a new tile is generated.
+    expect(update.board.filter(value => value !== 0).length).toBe(5);
   });
 });
